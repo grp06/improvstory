@@ -1,0 +1,19 @@
+<template name="nav">
+<div class="ui stackable grid">
+<div class="sixteen wide column">
+
+  <div class="ui fixed transparent inverted main menu">
+    <div class="header item">Story Game</div>
+    
+{{#if currentUser}}
+    <a class="item" href="{{pathFor 'gamesList'}}">Home</a>
+    <a class="item" href="{{pathFor 'users'}}">Users</a>
+  
+    {{/if}}
+    <div class="right menu">
+      {{> atNavButton}}
+    </div>
+  </div>
+</div>
+</div>
+</template>

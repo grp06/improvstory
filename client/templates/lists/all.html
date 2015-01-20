@@ -1,0 +1,36 @@
+<template name="all">
+
+	<div class="ui segment thisUser">
+		Welcome {{returnUsername}}
+				
+				{{#if returnCreator}}
+				{{>gameCreatorPanel}}
+				{{/if}}
+	</div>
+
+	<div class="ui segment prompt">
+
+		<div class="round">
+			{{#each returnRound}}
+			Round: {{round}}
+			<br />
+			{{/each}}
+			<div class="prompt">Once upon a time</div>
+		{{#each returnGameStory}}
+		{{winningResponse}}
+		{{/each}}
+		</div>
+
+	</div>
+	{{#if displayInput}}
+	{{>showInput}}
+	{{/if}}
+
+	{{#if displayVoting}}
+	{{>showVoteOptions}}
+	{{/if}}
+
+	{{#if displayResultsTemplate}}
+	{{>showVoteResults}}
+	{{/if}}
+</template>

@@ -1,0 +1,31 @@
+<template name="gamesList">
+	
+
+  <div class="sixteen wide column">
+			
+	<div class="ui segment">
+
+		<a href="{{pathFor 'gamePage'}}">
+			<div class="ui button createGame">Create Game</div>
+			<br />
+		</a>
+
+	</div>
+			{{#each game}}
+
+			<a href="{{pathFor 'gamePage'}}" class="joinGame">
+				
+			{{createdBy}}<br />
+
+	
+			</a>
+			{{/each}}
+
+		
+		
+		
+</div>
+
+</template>
+
+

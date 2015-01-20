@@ -1,0 +1,19 @@
+<template name="userPage">
+
+
+
+<div class="ui segment">
+{{#each user}}
+Email: {{userEmail}}<br />
+Rounds Played: {{profile.roundsPlayed}}<br />
+Rounds Won: {{profile.roundsWon}}<br />
+Games Played: {{profile.gamesPlayed}}<br />
+Games Won: {{profile.gamesWon}}<br />
+Total Votes: {{profile.voteTotal}}<br />
+Response Length: {{profile.responseLength}}<br />
+Response Time: {{profile.responseTime}}<br />
+
+
+{{/each}}
+</div>
+</template>

@@ -1,0 +1,30 @@
+<template name="showVoteOptions">
+	<div class="ui segment responses">
+		<div class="timeRemaining">
+			{{#each returnVotingTimer}}
+		{{votingTimer}} seconds left to vote
+	{{/each}}
+		</div>
+		<div class="choose">Choose One of the Following:</div>
+		<br />
+		{{#each returnResponses}}
+		<div class="possibleChoice {{returnHighlight}}">{{response}}</div>
+		{{/each}}
+		<br />
+		
+		{{#if returnSubmitVote}}
+		{{>submitVote}}
+		{{/if}}
+
+	</div>
+
+</template>
+
+<template name="submitVote">
+	
+		<div class="voteWarning">{{returnVoteWarning}}</div>
+		<div id="submitVote" class="ui button submitVote">Submit Vote</div>
+		{{returnVoteSubmitted}}
+
+
+</template>

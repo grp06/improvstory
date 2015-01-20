@@ -1,0 +1,180 @@
+----------GAME DATA----------
+Core Game Data:
+		id:
+		createdAt:
+		createdBy:
+		startingPhrase:
+		gameName:
+
+Game State Data:
+		gameId:
+		roundNumber:
+		roundStart: true/false 
+		roundTimer:
+		showVoting: true/false
+		votingTimer:
+		showResults: true/false
+		roundFinshed: true/false
+		roundFinishedTimer: 
+		gameOver: true/false
+
+Game Story:
+		gameId:
+		createdBy:
+		createdAt:
+		response:
+		responseLength:
+		responseTime:
+		round:
+		voteTotal:
+
+----------USER DATA----------
+
+Round Data
+		userId:
+		gameId: 
+		round: 
+		response:
+		responseLength:
+		responseTime:
+		voteTotal:
+
+Game Data
+		userId:
+		gameId:
+		roundsWon:
+		responses: []
+		responseLength:
+		responseTime:
+		voteTotal
+		wonGame: true/false
+
+All Time Data
+		userId:
+		gameIds: 
+		roundsPlayed:
+		roundsWon:
+		gamesPlayed:
+		gamesWon:
+		voteTotal:
+		responseLength:
+		responseTime:
+
+////////////////////////////////////////////////////
+
+Game Lobby:
+	return
+		gameCompleted: false
+			gameName:
+			createdAt:
+			createdBy:
+			startingPhrase:
+
+Users:
+	return
+		**options**
+			roundsPlayed:
+			roundsWon:
+			gamesPlayed:
+			gamesWon:
+			voteTotal:
+			responseLength:
+			responseTime:
+
+Completed Stories:
+	return
+		**options**
+			createdAt:
+
+Current Game:
+
+		H-- StateData --H
+			{{round}}
+
+		H-- CoreData --H
+			SORT: gameId
+			{{response}}			
+
+		
+		WHEN ^^click start^^ 
+				$set roundStart === true
+					$increment roundNumber
+					^^roundTimer^^
+
+					[*insert round data*]
+
+
+		
+		WHEN roundTimer === 0
+				$set roundStart === false
+				$set showVoting === true
+
+				H-- RoundData --H
+					gameId:
+					round:
+						{{response}}
+
+				^^votingTimer^^
+
+				[*update roundData*]
+
+		
+		WHEN voteTimer === 0
+				$set showVoting === false
+				$set showResults === true
+
+				
+				[*insert GameStory*]
+					-->RoundData:
+					SORT: voteTotal: -1, responseTime: 1
+						response:
+						responseLength:
+						responseTime:
+						round:
+
+
+
+				H-- RoundData --H
+					FILTER: voteTotal -1
+						gameId:
+						round:
+							{{response}}
+
+				$set roundFinished === true
+					^^roundFinishedTimer^^
+
+		WHEN roundFinishedTimer === 0
+			$set showResults === false
+			$set roundStart === true
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+		WHEN ^^click createGame^^
+
+		[*insert Core Game Data *] 
+
+
+
+
+		/*
+
+
+
+
+
+
+
+
+	
+//if no response... response time = 30
+
+if roundStart = true > start round timer and show response template
+if votingStart = true > start voting and show vote template
+
+if gameOver = true, add gameId to every user's All time data
+*/
+
+
+

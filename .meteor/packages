@@ -1,0 +1,34 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+insecure
+meteorhacks:npm
+
+
+npm-container
+
+iron:router
+accounts-password
+accounts-ui
+nooitaf:semantic-ui
+
+
+
+
+zimme:iron-router-active
+useraccounts:semantic-ui
+useraccounts:core
+
+service-configuration
+accounts-facebook
+accounts-google
+ongoworks:security
+u2622:persistent-session
+momentjs:moment
+
+aldeed:collection2
+aldeed:simple-schema

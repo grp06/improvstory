@@ -1,0 +1,95 @@
+/* CSS declarations go here */
+
+*
+{
+    font-family: 'Open Sans', sans-serif;
+
+    list-style: none;
+    box-sizing: border-box;
+
+}
+input:focus { 
+    background-color: red;
+}
+h1, h2{
+text-align: center;
+margin: 0;
+}
+a:hover{
+    text-decoration: none;
+}
+.instructions{
+	font-size: 10px;
+	color: rgba(200, 0, 0, 1);
+}
+
+.countdown{
+
+}
+.prompt{
+
+}
+.space{
+	margin-top: 20px;
+}
+.selected{
+	background: rgba(0, 200, 0, .3);
+	padding: 10px;
+	padding-left: 0px;
+	border: 1px solid #ccc;
+}
+.round{
+	font-size: 18px;
+	color: black;
+	margin-bottom: 5px;
+}
+
+.timeRemaining{
+	margin-bottom: 5px;
+	font-size: 18px;
+	color: black;
+}
+.resultsTitle{
+	margin-bottom: 5px;
+	font-size: 18px;
+	color: black;
+}
+.choose{
+	font-size: 16px;
+	color: black;
+}
+
+.votingAnswers{
+	margin-top: 5px;
+	font-size: 34px;
+}
+#response{
+	width: 100%;
+	font-size: 20px;
+
+}
+
+.widee{
+	width: 60%;
+	height: 100%x;
+}
+.possibleChoice{
+	font-size: 34px;
+}
+.bg{
+	height: 150px;
+}
+
+
+.editAge{
+width: 100%;
+}
+.enterAge{
+text-align: center;
+}
+
+
+
+ 
+
+

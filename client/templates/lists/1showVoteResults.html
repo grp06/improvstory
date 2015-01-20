@@ -1,0 +1,30 @@
+<template name="showVoteResults">
+
+	<div class="ui stackable three column grid">
+		<div class="eight wide column">
+			<div class="ui segment">
+				<div class="resultsTitle">Results:</div>
+				{{#each voteResults}}
+		{{userAlias}}: {{response}} --- {{votes}} votes
+				<br />
+				{{/each}}
+			</div>
+		</div>
+			
+
+
+			<div class="six wide column">
+				{{#each returnRankings}}
+				<div class="ui segment">
+
+				{{userAlias}}<br /> 
+				{{roundsWon}} rounds won. <br /> 
+				{{votes}} total votes this game.<br />
+				<br />
+							</div>
+
+				{{/each}}
+			</div>
+
+	</div>
+</template>

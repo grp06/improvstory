@@ -1,0 +1,30 @@
+<template name="userList">
+  
+
+
+  <div class="sixteen wide column">
+	<div class="ui segment">
+			
+		<div>
+			
+
+		</div>
+			{{#each user}}
+
+			<a href="{{pathFor 'userPage'}}">
+				
+			{{userEmail}}<br />
+
+
+			</a>
+			{{/each}}
+
+	</div>
+		
+		
+		
+</div>
+
+
+</template>
+

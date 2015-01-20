@@ -1,0 +1,19 @@
+<template name="layout">
+
+<head>
+	<title>Story Game</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	</head>
+	
+<div class="space ui grid">
+
+	  {{> nav}}
+
+</div>
+
+<div class="ui page grid">
+		<div class="space column">{{>yield}}</div>
+</div>
+
+</template>
+

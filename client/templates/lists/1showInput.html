@@ -1,0 +1,21 @@
+<template name="showInput">
+	<div class="ui segment bh">
+			<div class="timeRemaining">
+			 		 {{#each returnRound}}
+					{{roundTimer}} seconds remaining
+					{{/each}}
+		</div>
+
+		<div class="ui input widee">
+			<input id="response" type="text" placeholder='To begin, everyone has 20 seconds to respond to "Once upon a time. Be Creative ;)'>
+
+
+			</div>	
+
+			<div class="ui button submitResponse"> 
+		<!-- doesn't submit to DB -->
+				Submit Response
+			</div>
+			
+	</div>
+</template>
