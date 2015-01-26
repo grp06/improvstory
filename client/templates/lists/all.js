@@ -1,6 +1,8 @@
 if (Meteor.isClient) {
 
     Template.all.helpers({
+
+        //welcomes the current user
         returnCreator: function(){
             var currentUserId = Meteor.userId();
             var gCreator = !! CoreGameData.findOne({_id: this._id, creatorUserId: currentUserId})
@@ -12,10 +14,11 @@ if (Meteor.isClient) {
           
      
         },
-
+        //shows current round
         returnRound: function(){
             return GameStateData.find({gameId: this._id})
         },
+
         displayInput: function(){
 
             var gameData = GameStateData.find({gameId: this._id}).fetch();
@@ -35,6 +38,7 @@ if (Meteor.isClient) {
             var showVoteResultsStatus = !! gameData[0] && gameData[0].showVoteResults;
             return showVoteResultsStatus
         },
+        //shows the story as it's built
         returnGameStory: function(){
             return GameStory.find({gameId: this._id})
         },
@@ -49,6 +53,21 @@ if (Meteor.isClient) {
 
             return Meteor.users.find().fetch();
         },
+        displayFinalRound: function(){
+            var gameData = GameStateData.find({gameId: this._id}).fetch();
+            var showFinalRound = !! gameData[0] && gameData[0].finalRound;
+            return showFinalRound
+
+        },        
+        displayGameOver: function(){
+            var gameData = GameStateData.find({gameId: this._id}).fetch();
+            var showGameOver = !! gameData[0] && gameData[0].gameCompleted;
+            return showGameOver
+
+        },
+        winnerName: function(){
+
+        }
 
     })
 
@@ -58,38 +77,24 @@ if (Meteor.isClient) {
     Template.all.events({
         'click .start': function () {
 
-            var roundTimer = 30
-            var votingTimer = 15
-
+            //calls a method to execute when start is presses
             var gameId = this._id;
-            Meteor.call('startRound', gameId, roundTimer, votingTimer, function(error, result){
+            Meteor.call('startRound', gameId, function(error, result){
 
             });
-
-
-
 
             Meteor.call('roundTimer', gameId, function(error, result){
 
             });
             Session.set('voteSubmitted', null)
 
-
-
         },
-        'click .startVoting': function(){
-   
+        'click .deleteGame': function(){
             var gameId = this._id;
-            
-            Meteor.call('votingTimer', gameId, function(){
+            Meteor.call('deleteGame', gameId, function(){
 
             })
 
-
-            var votingTimer = 15
-            CoreGameData.update({_id: gameId}, {$set: {votingTimer: votingTimer}});
- 
-    
         },
 
     });

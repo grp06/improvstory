@@ -22,10 +22,15 @@ Meteor.publish('allTimeData', function() {
     return AllTimeData.find({});
 });
 
+Meteor.publish('completedStories', function() {
+    return CompletedStories.find({});
+});
+
 
 Meteor.publish('allUsers', function() {
     return Meteor.users.find({}, {
         fields: {
+            _id: 1,
             username: 1,
             address: 1,
             emails: 1,
@@ -34,6 +39,7 @@ Meteor.publish('allUsers', function() {
             gamesPlayed: 1,
             gamesWon: 1,
             voteTotal: 1,
+            responses: 1,
             responseLength: 1,
             responseTime: 1,
             gameIds: 1
@@ -54,8 +60,10 @@ Accounts.onCreateUser(function(options, user) {
     options.profile.gamesPlayed = 0;
     options.profile.gamesWon = 0;
     options.profile.voteTotal = 0;
+    options.profile.responses = [];
     options.profile.responseLength = 0;
     options.profile.responseTime = 0;
+
 
 
 

@@ -1,0 +1,17 @@
+<template name="completedStoriesList">
+
+<div class="storyListHeading">This is a list of all completed stories. Link in blue is the moral of the story</div>
+<div class="ui stackable grid">
+
+{{#each returnCompletedStories}}
+
+
+<div class="four wide column">
+<a href="{{pathFor 'completedStoriesPage'}}"><div class="ui segment">{{moral}}</div>
+		</a> <br />
+</div>
+
+{{/each}}
+	</div>
+
+</template>

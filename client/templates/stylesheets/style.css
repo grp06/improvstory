@@ -23,11 +23,8 @@ a:hover{
 	color: rgba(200, 0, 0, 1);
 }
 
-.countdown{
-
-}
-.prompt{
-
+.joinGame a{
+	color: white;
 }
 .space{
 	margin-top: 20px;
@@ -37,6 +34,7 @@ a:hover{
 	padding: 10px;
 	padding-left: 0px;
 	border: 1px solid #ccc;
+	border-radius: 5px;
 }
 .round{
 	font-size: 18px;
@@ -80,15 +78,23 @@ a:hover{
 	height: 150px;
 }
 
-
+.final{
+	color: red;
+}
 .editAge{
 width: 100%;
 }
 .enterAge{
 text-align: center;
 }
+.completedStoryStyle{
+	font-size: 24px;
+}
 
-
+.storyListHeading{
+	font-size: 24px;
+	text-align: center;
+}
 
  
 

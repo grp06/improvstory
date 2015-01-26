@@ -2,7 +2,7 @@ Template.userList.helpers({
     userEmail: function() {
         return this.emails[0].address;
     },
-    user: function(){
-    	return Users.find({});
+    userList: function(){
+    	return Meteor.users.find({});
     }
 });

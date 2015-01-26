@@ -1,36 +1,83 @@
 <template name="all">
 
 	<div class="ui segment thisUser">
+
 		Welcome {{returnUsername}}
-				
+				<!--  allows creator to start/delete the game  -->
+	
 				{{#if returnCreator}}
 				{{>gameCreatorPanel}}
 				{{/if}}
 	</div>
 
+	<!--  Tells us that its the final round  -->
+
+	{{#if displayFinalRound}}
+	{{>finalRound}}
+	{{/if}}
+	
+	{{#if displayGameOver}}
+	{{>gameOver}}
+	{{/if}}
+
 	<div class="ui segment prompt">
 
 		<div class="round">
+			<!--  Tells us which round we're on  -->
+
 			{{#each returnRound}}
 			Round: {{round}}
 			<br />
 			{{/each}}
+
 			<div class="prompt">Once upon a time</div>
+
+				<!--  Shows us the story as it's built up  -->
+
 		{{#each returnGameStory}}
 		{{winningResponse}}
 		{{/each}}
+
+
 		</div>
 
 	</div>
+		<!--  Appears after a user presses start  -->
+
 	{{#if displayInput}}
 	{{>showInput}}
 	{{/if}}
+
+	<!--  Appears after the first timer hits zero  -->
 
 	{{#if displayVoting}}
 	{{>showVoteOptions}}
 	{{/if}}
 
+		<!-- Shows up after the voting timer reaches zero   -->
+
+
 	{{#if displayResultsTemplate}}
 	{{>showVoteResults}}
 	{{/if}}
+
+
+</template>
+
+	<!-- Just didn't feel like making entirely new files for these two templates   -->
+
+<template name="finalRound">
+
+	<div class="ui segment final"> 
+	Round 10 is the Final Round! Wrap Up The Story!
+	</div>
+
+</template>
+
+<template name="gameOver">
+
+	<div class="ui segment gameOver"> 
+	Game Completed
+	</div>
+
 </template>
