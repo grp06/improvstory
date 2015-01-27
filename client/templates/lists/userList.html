@@ -2,25 +2,18 @@
   
 
 
-  <div class="sixteen wide column">
-	<div class="ui segment">
-			
-		<div>
-			
-
-		</div>
-			{{#each userList}}
-
-			<a href="{{pathFor 'userPage'}}">
-				
-			{{emails.[0].address}}<br />
-
-
-			</a>
-			{{/each}}
-
-	</div>
+<div class="sixteen wide column">
+<div class="ui segment">
 		
+
+	{{#each userList}}
+
+	<a href="{{pathFor 'userPage'}}">{{profile.name}}</a><br />
+	{{/each}}
+
+
+</div>
+	
 		
 		
 </div>

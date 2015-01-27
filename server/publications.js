@@ -30,19 +30,17 @@ Meteor.publish('completedStories', function() {
 Meteor.publish('allUsers', function() {
     return Meteor.users.find({}, {
         fields: {
-            _id: 1,
+            profile: 1,
             username: 1,
             address: 1,
             emails: 1,
             roundsWon: 1,
             roundsPlayed: 1,
-            gamesPlayed: 1,
             gamesWon: 1,
             voteTotal: 1,
             responses: 1,
             responseLength: 1,
             responseTime: 1,
-            gameIds: 1
         }
     })
 })
@@ -50,21 +48,23 @@ Meteor.publish('allUsers', function() {
 
 
 
+
 Accounts.onCreateUser(function(options, user) {
-    if(!options.profile){
-       options.profile = {}
+    if (!options.profile) {
+        options.profile = {}
     }
-    options.profile.gameIds = [];
-    options.profile.roundsPlayed = 0
     options.profile.roundsWon = 0;
     options.profile.gamesPlayed = 0;
     options.profile.gamesWon = 0;
     options.profile.voteTotal = 0;
-    options.profile.responses = [];
     options.profile.responseLength = 0;
     options.profile.responseTime = 0;
+    options.profile.largePicture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=large";
+    options.profile.normalPicture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=normal";
+    options.profile.smallPicture = "http://graph.facebook.com/" + user.services.facebook.id + "/picture/?type=small";
 
-
+//id: 704586496327203
+//secret: 01894c0c52292f86d063e06bf2d0dc46
 
 
 
@@ -72,16 +72,3 @@ Accounts.onCreateUser(function(options, user) {
         user.profile = options.profile;
     return user;
 });
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,3 @@
-if (Meteor.isClient) {
 
     Template.all.helpers({
 
@@ -42,13 +41,7 @@ if (Meteor.isClient) {
         returnGameStory: function(){
             return GameStory.find({gameId: this._id})
         },
-        returnUsername: function(){
-            var currentUserId = Meteor.userId();
-            var userRecord = Meteor.users.find({_id: currentUserId}).fetch();
-            var userObject = !! userRecord[0] && userRecord[0].emails;
-            var userEmail = !! userObject[0] && userObject[0].address
-            return userEmail     
-        },
+
         returnAllUsers: function(){
 
             return Meteor.users.find().fetch();
@@ -79,6 +72,7 @@ if (Meteor.isClient) {
 
             //calls a method to execute when start is presses
             var gameId = this._id;
+
             Meteor.call('startRound', gameId, function(error, result){
 
             });
@@ -87,6 +81,8 @@ if (Meteor.isClient) {
 
             });
             Session.set('voteSubmitted', null)
+            document.getElementById("response").disabled = false;
+
 
         },
         'click .deleteGame': function(){
@@ -100,7 +96,13 @@ if (Meteor.isClient) {
     });
 
 
-}
+Template.gameOver.helpers({
+    returnWinner: function(){
+        var cursor = UserGameData.find({gameId: this._id, wonGame: true}).fetch();
+        var winner = !! cursor[0] && cursor[0].userAlias
+        return winner
+    }
+})
 
 
 

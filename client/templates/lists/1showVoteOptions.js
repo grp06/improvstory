@@ -66,24 +66,24 @@ if (Meteor.isClient) {
             //console.log(myOwnSubmission)
             //console.log(selectedItem)
 
-           // if(selectedItem != myOwnSubmission) {
-                //Session.set('voteWarning', 'You cant vote for yourself!');
+            if(selectedItem != myOwnSubmission) {
+                Session.set('voteWarning', 'You cant vote for yourself!');
 
 
-            //} else {
+            } else {
 
                 Meteor.call('submitVote', selectedItem, gameId, function(error, response) {
 
                 })
+            Session.set('voteSubmitted', "Vote Submitted")
 
-                //Session.set('voteWarning', null);
-            //}
+                Session.set('voteWarning', null);
+            }
 
 
 
 
             document.getElementById("submitVote").disabled = true;
-            Session.set('voteSubmitted', "Vote Submitted")
 
 
 

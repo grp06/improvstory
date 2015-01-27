@@ -1,5 +1,6 @@
 Template.completedStoriesList.helpers({
 	returnCompletedStories: function () {
-		return CompletedStories.find({})
+		return CompletedStories.find({moral: {$ne: null }})
+		
 	}
 });

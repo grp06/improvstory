@@ -1,31 +1,34 @@
 <template name="gamesList">
 
-<div class="ui stackable grid">
-		<div class="sixteen wide column">
+	<div class="ui stackable grid">
+		<div class="center aligned column">
 			<div class="ui segment">
-
-			<a href="{{pathFor 'gamePage'}}">
-				<div class="ui button createGame">Create Game</div>
-				<br />
-			</a>
-		</div>
+ 
+				<a href="{{pathFor 'gamePage'}}">
+					<div class="ui pink button createGame">No Games? Create One</div>
+					<br />
+				</a>
+			</div>
 		</div>
 	</div>
 	<div class="ui stackable three column grid">
 		{{#each game}}
 		<div class="column">
-			<div class="ui segment">
-				<div class="ui green button joinGame"><a href="{{pathFor 'gamePage'}}">Join Game</a></div>
-				
-				<br />
-			Created At: {{createdAt}}<br /> By: 
-			{{createdBy}}<br />
+			<div class="ui segment centerCompleted">
 
-				
+				Created At: {{createdAt}}
 				<br />
-		
-	</div>
+				By: 
+			{{createdBy}}
+				<br />
+				<img class='profpic' src="{{picture}}" />
+				<br />
+				<div class="ui green button joinGame">
+					<a href="{{pathFor 'gamePage'}}">Join Game</a>
+				</div>
+
 			</div>
+		</div>
 		{{/each}}
 	</div>
 </template>

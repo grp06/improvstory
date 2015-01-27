@@ -2,18 +2,53 @@
 
 
 
-<div class="ui segment">
-{{#each user}}
-Email: {{userEmail}}<br />
-Rounds Played: {{profile.roundsPlayed}}<br />
-Rounds Won: {{profile.roundsWon}}<br />
-Games Played: {{profile.gamesPlayed}}<br />
-Games Won: {{profile.gamesWon}}<br />
-Total Votes: {{profile.voteTotal}}<br />
-Response Length: {{profile.responseLength}}<br />
-Response Time: {{profile.responseTime}}<br />
+	<div class="ui page grid">
+		<div class="center aligned column">
+			<div class="statistics">
+				{{#each user}}
+				<div class="email">{{profile.name}}<br />
 
+				<img class='profpic' src="{{profile.largePicture}}" />
 
-{{/each}}
-</div>
+				</div>
+				<br />
+
+				<div class="ui three column grid">
+					<div class="column">
+						<div class="statTitle">Rounds Played: </div>
+
+						<div class="ui segment center">{{profile.roundsPlayed}}</div>
+					
+					</div>
+
+					<div class="column">
+						<div class="statTitle">Rounds Won: </div>
+						<div class="ui segment center">{{profile.roundsWon}}</div>
+					</div>
+
+					<div class="column">
+						<div class="statTitle">Games Won: </div>
+						<div class="ui segment center">{{profile.gamesWon}}</div>
+					</div>
+
+					<div class="column">
+						<div class="statTitle">Votes Received: </div>
+					<div class="ui segment center">{{profile.voteTotal}}</div>
+					</div>
+
+					<div class="column">
+						<div class="statTitle">Average Response Length:</div> 
+					<div class="ui segment center">{{averageResponseLength}} Characters</div>
+					</div>
+
+					<div class="column">
+						<div class="statTitle">Average Response Time: </div>
+					<div class="ui segment center">{{averageResponseTime}} seconds
+					</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
 </template>

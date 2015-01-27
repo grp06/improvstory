@@ -15,16 +15,16 @@
 		{{#if returnSubmitVote}}
 		{{>submitVote}}
 		{{/if}}
-
+		<div class="voteWarning">{{returnVoteWarning}}</div>
+		<div id="submitVote" class="ui button submitVote">Submit Vote</div>
+		{{returnVoteSubmitted}}
 	</div>
 
 </template>
 
 <template name="submitVote">
 	
-		<div class="voteWarning">{{returnVoteWarning}}</div>
-		<div id="submitVote" class="ui button submitVote">Submit Vote</div>
-		{{returnVoteSubmitted}}
+
 
 
 </template>

@@ -2,82 +2,107 @@
 
 	<div class="ui segment thisUser">
 
-		Welcome {{returnUsername}}
-				<!--  allows creator to start/delete the game  -->
-	
-				{{#if returnCreator}}
+		<!--  allows creator to start/delete the game  -->
+		{{#if returnCreator}}
 				{{>gameCreatorPanel}}
 				{{/if}}
 	</div>
 
-	<!--  Tells us that its the final round  -->
-
-	{{#if displayFinalRound}}
+	<div class="ui stackable grid">
+		<div class="sixteen wide column">
+			<!--  Tells us that its the final round  -->
+			{{#if displayFinalRound}}
 	{{>finalRound}}
+	{{else}}
+	{{>instructions}}
 	{{/if}}
-	
-	{{#if displayGameOver}}
+
+				{{#if displayGameOver}}
 	{{>gameOver}}
 	{{/if}}
+		</div>
+		
 
-	<div class="ui segment prompt">
+	</div>
+	<div class="ui stackable two column grid">
 
-		<div class="round">
-			<!--  Tells us which round we're on  -->
+		<!--  Appears after a user presses start  -->
+		{{>showInput}}
+		<div class="column">
+			<div class="ui segment prompt">
 
-			{{#each returnRound}}
+				<div class="round">
+					<!--  Tells us which round we're on  -->
+					{{#each returnRound}}
 			Round: {{round}}
-			<br />
-			{{/each}}
-
-			<div class="prompt">Once upon a time</div>
-
-				<!--  Shows us the story as it's built up  -->
-
+					<br />
+					{{/each}}
+					<!--  Shows us the story as it's built up  -->
+		<div class="goingStory">
 		{{#each returnGameStory}}
 		{{winningResponse}}
 		{{/each}}
+	</div>
+				</div>
 
-
+			</div>
 		</div>
 
 	</div>
-		<!--  Appears after a user presses start  -->
 
-	{{#if displayInput}}
-	{{>showInput}}
-	{{/if}}
 
-	<!--  Appears after the first timer hits zero  -->
 
-	{{#if displayVoting}}
+	<div class="ui stackable grid">
+
+		<div class="eight wide column">
+
+			<!--  Appears after the first timer hits zero  -->
+			{{#if displayVoting}}
 	{{>showVoteOptions}}
 	{{/if}}
-
-		<!-- Shows up after the voting timer reaches zero   -->
-
-
-	{{#if displayResultsTemplate}}
+			<!-- Shows up after the voting timer reaches zero   -->
+			{{#if displayResultsTemplate}}
 	{{>showVoteResults}}
 	{{/if}}
+		</div>
 
+		<div class="eight wide column">
+			<div class="ui stackable two column grid">
+				<div class="column">
+					{{#each returnRankings}}
+					<div class="ui segment alignCenter">
+						<div class="centerName">{{userAlias}}</div>
+						<br />
+						<img class="profpic1" src="{{picture}}" />
+
+						<div class="centerName">{{votes}} votes this game</div>
+						<div class="centerName">{{roundsWon}} rounds won</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
 
 </template>
 
-	<!-- Just didn't feel like making entirely new files for these two templates   -->
+<!-- Just didn't feel like making entirely new files for these two templates   -->
 
 <template name="finalRound">
 
-	<div class="ui segment final"> 
-	Round 10 is the Final Round! Wrap Up The Story!
-	</div>
+	<div class="ui segment final">Round 10 is the Final Round!</div>
 
 </template>
 
 <template name="gameOver">
 
-	<div class="ui segment gameOver"> 
-	Game Completed
-	</div>
+	<div class="ui segment gameOver">Game Completed. {{returnWinner}} won!</div>
 
+</template>
+<template name="instructions">
+	<div class="ui segment">
+	<div class="instructions">
+		Once the timer starts, write in a response. When the timer expires, vote on your favorite response. The winner will be added to the story.
+	</div>
+</div>
 </template>

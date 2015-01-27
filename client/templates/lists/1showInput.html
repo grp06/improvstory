@@ -1,4 +1,5 @@
 <template name="showInput">
+	<div class="column">
 	<div class="ui segment bh">
 			<div class="timeRemaining">
 			 		 {{#each returnRound}}
@@ -7,15 +8,12 @@
 		</div>
 
 		<div class="ui input widee">
-			<input id="response" type="text" placeholder='To begin, everyone has 20 seconds to respond to "Once upon a time. Be Creative ;)'>
+			<input id="response" type="text" rows="3" placeholder='Type in a response and press Enter to submit'>
 
 
 			</div>	
+		</div>
 
-			<div class="ui button submitResponse"> 
-		<!-- doesn't submit to DB -->
-				Submit Response
-			</div>
+		</div>
 			
-	</div>
 </template>

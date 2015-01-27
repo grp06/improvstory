@@ -1,7 +1,8 @@
 Template.gamesList.helpers({
 
     game: function() {
-        return CoreGameData.find({});
+        return CoreGameData.find({active: {$ne: false }})
+
     },
     user: function(){
     	return Users.find({});

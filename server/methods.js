@@ -3,14 +3,16 @@ Users = Meteor.users
 Meteor.methods({
     createGame: function() {
         var currentUserId = Meteor.userId();
-        var createdAt = moment().format('h:mm:ss a');
+        var createdAt = moment().format('MMMM Do, h:mm a');
         var users = Users.find({
             _id: this.userId
         }).fetch();
         //Here I'm forcing a boolean because when using .fetch();
         //I kept having issues and someone smarter than me suggested it
         //I know there's a better way, still workin' on that
-        var createdBy = !!users[0] && users[0].emails[0].address;
+        var createdBy = !! users[0] && users[0].profile.name
+        var picture = !! users[0] && users[0].profile.largePicture
+
 
         //each game's creator and time is documented
         //haven't implemented game name or starting phrase yet
@@ -19,7 +21,9 @@ Meteor.methods({
             creatorUserId: currentUserId,
             createdAt: createdAt,
             startingPhrase: null,
-            gameName: null
+            gameName: null,
+            picture: picture,
+            active: true
 
         });
 
@@ -36,22 +40,26 @@ Meteor.methods({
             roundTimer: null,
             showVoting: false,
             startVote: false,
-            votingTimer: 4,
+            votingTimer: 15,
             roundFinished: false,
             roundFinishedTimer: 4,
             gameCompleted: false,
             showSubmitVote: false,
             finalRound: false,
+            startingLineSubmitted: false
         });
 
         //After a game, the completed story is kept
         //Each line of each story is kept in one position of an array
         //The last line of the story is "the moral of the story"
+
         CompletedStories.insert({
             finishedStory: [],
             gameId: gameId,
             story: null,
-            moral: null
+            moral: null,
+            createdAt: createdAt,
+            winner: null
         });
     },
 
@@ -59,8 +67,8 @@ Meteor.methods({
     startRound: function(gameId){
 
       //Timer is set to whatever I set it to in the 'start' event
-      GameStateData.update({gameId: gameId}, {$set: {roundTimer: 2}});
-      GameStateData.update({gameId: gameId}, {$set: {votingTimer: 2}});
+      GameStateData.update({gameId: gameId}, {$set: {roundTimer: 30}});
+      GameStateData.update({gameId: gameId}, {$set: {votingTimer: 15}});
       
       GameStateData.update({gameId: gameId}, {$set: {showInput: true}});
       //voting from previous round disappears
@@ -73,7 +81,7 @@ Meteor.methods({
       GameStateData.update({gameId: gameId}, {$set: {roundFinished: false}});
         
       //not using var because I keep getting undefined and can't figure it out  
-      currentUserId = this.userId;
+      var currentUserId = this.userId;
 
       //main function that runs the countdown timer.
       //same code is used for the voting timer below too
@@ -179,6 +187,7 @@ Meteor.methods({
          //Mark the game as completed
         GameStateData.update({gameId: gameId}, {$set: {gameCompleted: true}});
         GameStateData.update({gameId: gameId}, {$set: {finalRound: false}});
+        CoreGameData.update({_id: gameId}, {$set: {active: false}});
         //Take the person with the most votes **add a limit
         var winner = UserGameData.find({gameId: gameId}, {sort: {votes: -1}}).fetch();
         var userAlias = !! winner[0] && winner[0].userAlias;
@@ -192,10 +201,8 @@ Meteor.methods({
 
         CompletedStories.update({gameId: gameId}, {$set:{story: finalStoryArray}});
         CompletedStories.update({gameId: gameId}, {$set: {moral: winningResponse}}); 
+        CompletedStories.update({gameId: gameId}, {$set: {winner: userAlias}}); 
 
-        console.log('195 ' + currentUserId)
-        Users.update({_id: currentUserId}, {$inc: {"profile.gamesPlayed": 1}});
-        Users.update({_id: currentUserId}, {$push: {"profile.gameIds": gameId}});
         //update is going through but its not really updating
         Users.update({_id: uid}, {$inc: {"profile.gamesWon": 1}});
 
@@ -215,7 +222,7 @@ Meteor.methods({
         var users = Users.find({
             _id: this.userId
         }).fetch()
-        var userAlias = !!users[0] && users[0].emails[0].address;
+        var userAlias = !!users[0] && users[0].profile.name
         var createdAt = moment().format('h:mm:ss a')
         var length = response.length;
 
@@ -290,9 +297,12 @@ Meteor.methods({
                 votes: 1
             }
         });
+        var cursor = UserRoundData.find({_id: selectedItem}).fetch();
+        var winnerId = !! cursor[0] && cursor[0].uid;
+
         UserGameData.update({
             gameId: gameId,
-            uid: this.userId
+            uid: winnerId
         }, {
             $inc: {
                 votes: 1
@@ -305,15 +315,18 @@ Meteor.methods({
                 "profile.voteTotal": 1
             }
         });
+
+
     },
     joinGame: function(gameId) {
         var users = Users.find({
             _id: this.userId
         }).fetch()
-        var userAlias = !!users[0] && users[0].emails[0].address;
+        var userAlias = !!users[0] && users[0].profile.name
+        var picture = !!users[0] && users[0].profile.normalPicture
         if (UserGameData.find({
             gameId: gameId,
-            userId: this.userId
+            uid: this.userId
         }).count() === 0)
             UserGameData.insert({
                 uid: this.userId,
@@ -324,7 +337,8 @@ Meteor.methods({
                 responseLength: 0,
                 responseTime: 0,
                 votes: 0,
-                wonGame: false
+                wonGame: false,
+                picture: picture
 
             });
     },
@@ -335,6 +349,12 @@ Meteor.methods({
         GameStateData.remove({
             gameId: gameId
         })
+    },
+    firstLine: function(firstLine, gameId){
+        GameStory.insert({
+          gameId: gameId,
+          winningResponse: firstLine
+        });
     }
 
 
