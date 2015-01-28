@@ -67,8 +67,8 @@ Meteor.methods({
     startRound: function(gameId){
 
       //Timer is set to whatever I set it to in the 'start' event
-      GameStateData.update({gameId: gameId}, {$set: {roundTimer: 30}});
-      GameStateData.update({gameId: gameId}, {$set: {votingTimer: 15}});
+      GameStateData.update({gameId: gameId}, {$set: {roundTimer: 3}});
+      GameStateData.update({gameId: gameId}, {$set: {votingTimer: 3}});
       
       GameStateData.update({gameId: gameId}, {$set: {showInput: true}});
       //voting from previous round disappears
@@ -239,6 +239,7 @@ Meteor.methods({
             userAlias: userAlias,
             votes: 0,
             createdAt: createdAt,
+            notCheating: true,
 
         });
 
@@ -355,6 +356,10 @@ Meteor.methods({
           gameId: gameId,
           winningResponse: firstLine
         });
+    },
+    cheater: function(currentUserId, gameId){
+    UserRoundData.update({uid: currentUserId, gameId: gameId}, {$set:{notCheating: false}}, console.log('cheater'));
+
     }
 
 

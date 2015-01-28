@@ -55,35 +55,36 @@ if (Meteor.isClient) {
         'click .submitVote': function() {
             var currentUserId = Meteor.userId();
             var selectedItem = Session.get('selectedItem');
-            var cursor = UserRoundData.find({
-                createdBy: currentUserId
-            }).fetch()
-            var myOwnSubmission = !!cursor[cursor.length - 1] && cursor[cursor.length - 1]._id;
             var gameId = this._id;
-            console.log(gameId)
 
+            var cursor = GameStateData.find({gameId: gameId}).fetch()
+            var round = !! cursor[0] && cursor[0].round
 
-            //console.log(myOwnSubmission)
-            //console.log(selectedItem)
+            var myOwnSubmission = UserRoundData.find({uid: currentUserId, round: round}).fetch();
+  
+            document.getElementById("response").disabled = false;
+           
+            console.log("round " + round)
+            console.log("my own submission " + myOwnSubmission) 
+            console.log("Selected Item = " + Session.get('selectedItem'))
 
-            if(selectedItem != myOwnSubmission) {
-                Session.set('voteWarning', 'You cant vote for yourself!');
-
+            if(selectedItem === myOwnSubmission) {
+               
+            Session.set('voteWarning', "You can't vote for yourself, cheater!")
 
             } else {
 
-                Meteor.call('submitVote', selectedItem, gameId, function(error, response) {
+            Meteor.call('submitVote', selectedItem, gameId, function(error, response) {
 
-                })
+            })
+            document.getElementById("submitVote").disabled = true;
+
             Session.set('voteSubmitted', "Vote Submitted")
-
-                Session.set('voteWarning', null);
             }
 
 
 
 
-            document.getElementById("submitVote").disabled = true;
 
 
 

@@ -58,9 +58,7 @@
             return showGameOver
 
         },
-        winnerName: function(){
-
-        }
+      
 
     })
 
@@ -69,9 +67,11 @@
 
     Template.all.events({
         'click .start': function () {
-
             //calls a method to execute when start is presses
             var gameId = this._id;
+            Session.set('voteWarning', null);
+            Session.set('voteSubmitted', null)
+            Session.set('selectedItem', null);
 
             Meteor.call('startRound', gameId, function(error, result){
 
@@ -80,7 +80,6 @@
             Meteor.call('roundTimer', gameId, function(error, result){
 
             });
-            Session.set('voteSubmitted', null)
             document.getElementById("response").disabled = false;
 
 

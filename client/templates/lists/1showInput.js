@@ -23,8 +23,8 @@ if(Meteor.isClient){
                 var time = !! gameData[0] && gameData[0].roundTimer;
    
                 Session.set('voteWarning', null);
-                Session.set('voteWarning', null);
 
+                Session.set('voteSubmitted', null)
 
                 Meteor.call('response', response, round, gameId, time, function(error, response){
                   

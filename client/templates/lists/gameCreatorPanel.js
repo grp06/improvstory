@@ -11,9 +11,10 @@ Template.gameCreatorPanel.events({
 			console.log('hey')
 			var firstLine = $('#firstLine').val()
 			console.log(firstLine);
+            Session.set('voteWarning', null);
 
 			var gameId = this._id;
-			
+
 			Meteor.call('firstLine', firstLine, gameId, function(error, response){
 
 			})
